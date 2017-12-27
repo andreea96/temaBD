@@ -1,13 +1,12 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import './index.css';
+import './styles/index.css';
 import registerServiceWorker from './registerServiceWorker';
 import App from "./App";
-import Header from "./Header";
+import Header from "./Components/Header";
 import Router from './Routes_config';
 import LoginForm from "./LoginForm";
 import AuthExample from './Auth';
-
 
 
 //import SignIn from "./SignIn";
@@ -16,7 +15,7 @@ import AuthExample from './Auth';
 
 
 ReactDOM.render(
-    (<div><Header/><App /></div>),
+    (<div><Header/><App/></div>),
     document.getElementById('root')
 );
 

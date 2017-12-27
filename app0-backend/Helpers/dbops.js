@@ -11,16 +11,7 @@ var connection= mysql.createConnection({
 });
 
 
-
-exports.insertWine= function () {
-    connection.connect();
-    connection.query('Insert into vinuri values (2,"rose de rusia", "rose de rusia.jpg")',function (err) {
-        if(err) throw err
-
-    });
-    connection.end();
-
-}
+module.exports=connection;
 
 
 

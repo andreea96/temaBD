@@ -1,27 +1,22 @@
 var express = require('express');
+var Wine=require('../../Models/Wine');
 var router = express.Router();
-//var db=require('../../Helpers/dbops');
 
-
-var mysql=require('mysql');
-var connection= mysql.createConnection({
-    host: 'localhost',
-    user: 'user1',
-    password: 'pass',
-    database: 'viticultura'
-});
-
-
-
-exports.insertWine= function () {
-    connection.connect();
-    connection.query('Insert into vinuri values (2,"rose de rusia", "rose de rusia.jpg")',function (err) {
-        if(err) throw err
-
+router.get('/',function (req,resp) {
+    Wine.getAllWines(function (err,rows) {
+        if(err){
+            resp.json(err);
+        }
+        else {
+            resp.json(rows);
+        }
     });
-    connection.end();
-
-}
+})
 
 
-module.exports = router;
+
+/*router.get('/',function (req,resp) {
+    resp.send('ceva');
+})*/
+
+module.exports=router;
