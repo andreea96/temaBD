@@ -1,0 +1,30 @@
+{
+  "name": "app0",
+  "version": "0.1.0",
+  "private": true,
+  "dependencies": {
+    "firebase": "^4.6.2",
+    "history": "^4.7.2",
+    "isemail": "^3.0.0",
+    "jquery": "^3.2.1",
+    "react": "^16.2.0",
+    "react-bootstrap": "^0.31.5",
+    "react-burger-menu": "^2.1.11",
+    "react-dom": "^16.2.0",
+    "react-router": "^4.2.0",
+    "react-router-dom": "^4.2.2",
+    "react-scripts": "1.0.17",
+    "react-sticky-header": "^0.1.9",
+    "webpack": "^3.8.1"
+  },
+  "scripts": {
+    "start": "react-scripts start",
+    "build": "react-scripts build",
+    "test": "react-scripts test --env=jsdom",
+    "eject": "react-scripts eject"
+  },
+  "proxy": "http://localhost:3001",
+  "devDependencies": {
+    "react-router-role-authorization": "file:node_modules/react-router-role-authorization"
+  }
+}
