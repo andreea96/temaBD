@@ -8,15 +8,32 @@ import CoverFlow from 'coverflow-react';
 
 export default class Wine extends Component {
 
-     imageArr=[
-         'assets/download.png',
-         'assets/download.png',
-         'assets/download.png',
-    ];
+    constructor(props){
+        super(props);
+        this.imageArr=[
+            'assets/vin1.png',
+            'assets/vin1.png',
+            'assets/vin1.png',
+            'assets/vin1.png',
+            'assets/vin1.png',
+            'assets/vin1.png',
 
-    state={
-        wines: [],
-        images:[]
+
+        ];
+        this.  state={
+            wines: [],
+            images:[],
+            width: document.body.offsetWidth,
+            height: document.body.offsetHeight/4,
+
+        };
+        window.addEventListener('resize',()=>{
+            this.setState(()=>{
+                return {
+                  width: document.body.offsetWidth
+                };
+            })
+        })
 
     };
 
@@ -40,11 +57,12 @@ export default class Wine extends Component {
 
     }
 
+
     render() {
         return (
             <div className="Wines">
                 <h1>Our wines</h1>
-                <CoverFlow imagesArr={this.imageArr} background="white" itemRatio="8:5" height="200" width="200"/>
+                <CoverFlow imagesArr={this.imageArr} background="white" itemRatio="8:5" height="200" width="1820"/>
 
             </div>
         );

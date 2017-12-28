@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import './App.css';
 import * as firebase from 'firebase';
-import Wines from './Components/Wine';
+import Wines from './Components/WineTest';
 import LoginForm from "./LoginForm";
 import firebaseInit from './FirebaseInit';
 //import MyRouter from './Routes_config';
