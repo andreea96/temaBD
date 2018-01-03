@@ -1,12 +1,10 @@
 import React, { Component } from 'react';
 import './App.css';
 import * as firebase from 'firebase';
-import Wines from './Components/WineTest';
-import LoginForm from "./LoginForm";
-import firebaseInit from './FirebaseInit';
+import Wines from './Components/Wine';
+import firebaseInit from './Components/FirebaseInit';
 //import MyRouter from './Routes_config';
-import AdminComponent from './AdminComponent';
-import {BrowserRouter,Route} from 'react-router-dom';
+
 
 class App extends Component {
 

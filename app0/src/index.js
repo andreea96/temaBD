@@ -1,23 +1,23 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import './styles/index.css';
+//import './styles/index.css';
 import registerServiceWorker from './registerServiceWorker';
-import App from "./App";
+//import App from "./App";
+
+//import Header from "./Components/Header";
+import {Fade, Flip,Rotate,Zoom} from 'react-reveal';
 import Header from "./Components/Header";
-import Router from './Routes_config';
-import LoginForm from "./LoginForm";
-import AuthExample from './Auth';
-
-
-//import SignIn from "./SignIn";
-
-//ReactDOM.render(<SignIn />, document.getElementById('root'));
+import ModalExample from "./Example";
 
 
 ReactDOM.render(
-    (<div><Header/><App/></div>),
+    (<div>
+        <Header/>
+        <br />
+        <ModalExample/>
+    </div>),
     document.getElementById('root')
 );
 
 registerServiceWorker();
-
+//<App/>

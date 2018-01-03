@@ -30,7 +30,6 @@ export default class Wine extends Component {
 
         };
 
-        console.log(document.body.offsetHeight/4);
     };
 
     componentDidMount(){
@@ -72,7 +71,6 @@ export default class Wine extends Component {
                     <img src="assets/vita_romaneasca_rosu.png" alt="vita romaneasca"/>
                     <img src="assets/georgio.png" alt="georgio" />
                     <img src="assets/beciul_domnesc.png" alt="beciul-domnesc"/>
-
                 </Slider>
             </div>
 

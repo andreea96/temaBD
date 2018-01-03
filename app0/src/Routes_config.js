@@ -4,7 +4,7 @@
 
 import React, {Component} from 'react';
 import {BrowserRouter,Route,withRouter}  from 'react-router-dom';
-import AdminComponent from "./AdminComponent";
+import AdminComponent from "./Components/AdminComponent";
 import LoginForm from './LoginForm';
 
 const MyRouter = withRouter( ({history})=>(

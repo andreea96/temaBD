@@ -3,8 +3,12 @@
  */
 
 import React, {Component} from 'react';
-import CoverFlow from 'coverflow-react';
-//import image from '../../public/assets/download.png';
+import Slider from 'react-slick';
+import 'slick-carousel/slick/slick.css';
+import 'slick-carousel/slick/slick-theme.css';
+//import '../styles/wines.css';
+import {Modal,ModalHeader,ModalBody } from 'reactstrap';
+
 
 export default class Wine extends Component {
 
@@ -18,13 +22,14 @@ export default class Wine extends Component {
             'assets/vin1.png',
             'assets/vin1.png',
 
-
         ];
-        this.  state={
+        this.state={
             wines: [],
             images:[],
-            width: document.body.offsetWidth,
-            height: document.body.offsetHeight/4,
+            prices: [],
+            activeImage: 0,
+            isModalOpen: false,
+            wines_id: [],
 
         };
         window.addEventListener('resize',()=>{
@@ -35,43 +40,103 @@ export default class Wine extends Component {
             })
         })
 
+        this.toggle=this.toggle.bind(this);
+
     };
 
-    componentDidMount(){
+    componentWillMount(){
 
         fetch('http://192.168.33.101:3001/vinuri')
-            .then(res => res.json())
-            .then(wines => this.setState({ images: function (wines) {
+            .then(resp => resp.json())
+            .then(wines_info => this.setState((state) => {
+
                var images= [];
+               var wines=[];
+               var prices= [];
+               var wines_id=[];
                var i;
-               console.log(wines);
-               for(i=0;i<wines.length;i++)
+
+               for(i=0;i<wines_info.length;i++)
                {
-                   images.push(wines[i].image);
+                   images.push('assets/'+wines_info[i].image);
+                   prices.push(wines_info[i].cost);
+                   wines.push(wines_info[i].nume);
+                   wines_id.push(wines_info[i].vinId);
+
                }
-               console.log(images);
-               return images;
-            } }));
 
+               this.setState({
+                   images: images,
+                   prices: prices,
+                   wines: wines,
+                   wines_id: wines_id,
 
-
+               });
+               //return images;
+            } ));
     }
 
+    toggle(){
+        this.setState({
+            isModalOpen: !this.state.isModalOpen,
+        })
 
+    }
     render() {
-        return (
-            <div className="Wines">
-                <h1>Our wines</h1>
-                <CoverFlow imagesArr={this.imageArr} background="white" itemRatio="8:5" height="200" width="1820"/>
 
+         const onClick = (id)=> {
+             console.log(id);
+            this.setState({
+                activeImage: this.state.wines_id[id],
+            });
+            this.toggle();
+
+        }
+
+        var imgs=this.state.images.map(function (image,i) {
+
+            return (
+                <img src={image} id={i} onMouseOver={() => onClick({i})} />
+            );
+
+        });
+
+        var settings = {
+            dots: false,
+            infinite: true,
+            slidesToShow: 3,
+            slidesToScroll: 1,
+            variableWidth: true,
+
+        };
+
+        return (
+            <div className="wine">
+                <h1> Our Wines </h1>
+                <br />
+                <Slider {...settings} >
+                    {
+                        imgs
+                    }
+                </Slider>
+                <Modal isOpen={this.state.isModalOpen} toggle={this.toggle}>
+                    <ModalHeader toggle={this.toggle}>Title</ModalHeader>
+                    <ModalBody>{this.state.activeImage}</ModalBody>
+                </Modal>
             </div>
+
         );
     }
 }
 
-/**
- *              {
-                    this.state.wines.map(wine =>
-                        <div key={wine.id}>{wine.nume}</div>)
-                }
+
+/*
+ <img src="assets/beciul_domnesc.png" alt="beciul domnesc"/>
+ <img src="assets/ciocarlia_alba.png" alt="ciocarlia-alb"/>
+ <img src="assets/farniente.png" alt="farniente"/>
+ <img src="assets/vin1.png" alt="vin1" />
+ <img src="assets/vita_romaneasca_rosu.png" alt="vita romaneasca"/>
+ <img src="assets/georgio.png" alt="georgio" />
+ <img src="assets/beciul_domnesc.png" alt="beciul-domnesc"/>
+
  */
