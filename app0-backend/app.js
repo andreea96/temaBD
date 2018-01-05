@@ -7,6 +7,7 @@ var bodyParser = require('body-parser');
 
 var index = require('./Controllers/routes/index');
 var users = require('./Controllers/routes/users');
+var admin=require('./Controllers/Admin');
 
 var app = express();
 
@@ -44,6 +45,7 @@ app.use(function (req, res, next) {
 
 app.use('/vinuri', index);
 app.use('/users', users);
+app.use('/admin',admin);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {

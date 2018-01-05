@@ -6,11 +6,14 @@ import React, {Component} from 'react';
 import Slider from 'react-slick';
 import 'slick-carousel/slick/slick.css';
 import 'slick-carousel/slick/slick-theme.css';
-//import '../styles/wines.css';
+import '../styles/wines.css';
 import {Modal,ModalHeader,ModalBody } from 'reactstrap';
+import {Popover,OverlayTrigger} from 'react-bootstrap';
+
 
 
 export default class Wine extends Component {
+
 
     constructor(props){
         super(props);
@@ -24,11 +27,12 @@ export default class Wine extends Component {
 
         ];
         this.state={
-            wines: [],
             images:[],
-            prices: [],
-            activeImage: 0,
-            isModalOpen: false,
+            activeImageID: 0,
+            activeWineName: 'Undefined',
+            activeWinePrice: 0,
+            activeWineColor: 'Undefined',
+            activeWineType: 'Undefined',
             wines_id: [],
 
         };
@@ -40,63 +44,95 @@ export default class Wine extends Component {
             })
         })
 
-        this.toggle=this.toggle.bind(this);
+        this.popover=(
+            <Popover id="winePopover" title={this.state.activeWineName}>
+                <strong>Pret:</strong> {this.state.activeWinePrice}
+                <br />
+                {this.state.activeWineColor}
+                <br />
+                {this.state.activeWineType}
+            </Popover>
+        );
+
 
     };
+
+    componentDidUpdate(){
+        console.log('component updated');
+        //this.updatePopover();
+        this.popover=(
+            <Popover id="winePopover" title={this.state.activeWineName}>
+                <strong>Pret:</strong> {this.state.activeWinePrice}
+                <br />
+                --> Vin {this.state.activeWineColor}
+                <br />
+                <strong>{this.state.activeWineType}</strong>
+            </Popover>
+        )
+    }
+
+    updatePopover(){
+
+        var id= this.state.activeImageID;
+        fetch('http://192.168.33.101:3001/vinuri/'+id)
+            .then(resp=>resp.json())
+            .then(wine_info=>{
+                if(wine_info.length>=1){
+                this.setState({
+
+                    activeWineName: wine_info[0].nume,
+                    activeWinePrice: wine_info[0].cost,
+                    activeWineColor: wine_info[0].Culoare,
+                    activeWineType: wine_info[0].Tip,
+
+            })}
+            });
+        console.log(this);
+
+    }
+
+
 
     componentWillMount(){
 
         fetch('http://192.168.33.101:3001/vinuri')
             .then(resp => resp.json())
-            .then(wines_info => this.setState((state) => {
+            .then(wines_images_ids => this.setState((state) => {
 
                var images= [];
-               var wines=[];
-               var prices= [];
                var wines_id=[];
                var i;
 
-               for(i=0;i<wines_info.length;i++)
+               for(i=0;i<wines_images_ids.length;i++)
                {
-                   images.push('assets/'+wines_info[i].image);
-                   prices.push(wines_info[i].cost);
-                   wines.push(wines_info[i].nume);
-                   wines_id.push(wines_info[i].vinId);
+                   images.push('assets/'+wines_images_ids[i].image);
+                   wines_id.push(wines_images_ids[i].vinID);
 
                }
 
                this.setState({
                    images: images,
-                   prices: prices,
-                   wines: wines,
                    wines_id: wines_id,
-
                });
-               //return images;
             } ));
     }
 
-    toggle(){
-        this.setState({
-            isModalOpen: !this.state.isModalOpen,
-        })
-
-    }
     render() {
 
-         const onClick = (id)=> {
-             console.log(id);
+         const onHover = (id)=> {
+            setTimeout(
             this.setState({
-                activeImage: this.state.wines_id[id],
-            });
-            this.toggle();
+                activeImageID: this.state.wines_id[id],
+            },()=> {this.updatePopover()}),5000);
+
 
         }
 
-        var imgs=this.state.images.map(function (image,i) {
-
+        var imgs=this.state.images.map( (image,i) => {
             return (
-                <img src={image} id={i} onMouseOver={() => onClick({i})} />
+                <OverlayTrigger trigger="hover" placement="right" overlay={this.popover}>
+                    <img src={image} id={i} onMouseOver={() => onHover(i)} />
+                </OverlayTrigger>
             );
 
         });
@@ -110,6 +146,7 @@ export default class Wine extends Component {
 
         };
 
+
         return (
             <div className="wine">
                 <h1> Our Wines </h1>
@@ -119,10 +156,7 @@ export default class Wine extends Component {
                         imgs
                     }
                 </Slider>
-                <Modal isOpen={this.state.isModalOpen} toggle={this.toggle}>
-                    <ModalHeader toggle={this.toggle}>Title</ModalHeader>
-                    <ModalBody>{this.state.activeImage}</ModalBody>
-                </Modal>
+
             </div>
 
         );

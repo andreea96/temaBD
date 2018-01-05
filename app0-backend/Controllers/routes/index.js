@@ -13,6 +13,23 @@ router.get('/',function (req,resp) {
     });
 })
 
+router.get('/:vinID',function (req,resp) {
+
+    Wine.getWineInfo(req.params.vinID ,function (err,rows) {
+
+        if(err){
+            resp.json(err);
+        }
+        else{
+            console.log(rows);
+            resp.json(rows);
+
+    }
+    })
+})
+
+
+
 
 
 /*router.get('/',function (req,resp) {

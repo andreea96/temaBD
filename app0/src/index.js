@@ -1,20 +1,18 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-//import './styles/index.css';
+import './styles/index.css';
 import registerServiceWorker from './registerServiceWorker';
-//import App from "./App";
-
-//import Header from "./Components/Header";
 import {Fade, Flip,Rotate,Zoom} from 'react-reveal';
 import Header from "./Components/Header";
-import ModalExample from "./Example";
+import App from "./App";
+import {BrowserRouter,Switch} from 'react-router-dom';
 
 
 ReactDOM.render(
     (<div>
-        <Header/>
-        <br />
-        <ModalExample/>
+        <BrowserRouter>
+            <App/>
+        </BrowserRouter>
     </div>),
     document.getElementById('root')
 );

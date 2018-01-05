@@ -4,6 +4,8 @@ import * as firebase from 'firebase';
 import Wines from './Components/Wine';
 import firebaseInit from './Components/FirebaseInit';
 //import MyRouter from './Routes_config';
+import { Switch, Route } from 'react-router-dom';
+import AdminComponent from './Components/AdminComponent';
 
 
 class App extends Component {
@@ -26,25 +28,12 @@ class App extends Component {
  }
 
 
-
-  /*render() {
-    return (
-      <div className="App">
-            <BrowserRouter>
-                <div>
-                <LoginForm onLogin={this.onLogin} name="Some name" />
-                <Route path='/admin' component={AdminComponent }/>
-                </div>
-            </BrowserRouter>
-
-      </div>
-    );
-  } */
     render() {
         return (
-            <div className="App">
-               <Wines />
-            </div>
+                <Switch>
+                    <Route exact path='/' component={Wines} />
+                    <Route path="/admin" component={AdminComponent} />
+                </Switch>
         );
     }
 }
