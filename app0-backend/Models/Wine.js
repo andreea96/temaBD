@@ -2,7 +2,7 @@ var db = require('../Helpers/dbops');
 
 var Wine = {
     getAllWines: function (callback) {
-        return db.query('SELECT v.vinId,v.nume,v.cost,v.Culoare,v.Tip,p.Denumire,p.concurs,p.an from vinuri as v left join Premii as p on p.vinID=v.vinID;', callback);
+        return db.query('SELECT v.vinId,v.image,v.nume,v.cost,v.Culoare,v.Tip,p.Denumire,p.concurs,p.an from vinuri as v left join Premii as p on p.vinID=v.vinID;', callback);
     },
 
 
