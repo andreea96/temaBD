@@ -8,7 +8,7 @@ import SelectField from 'material-ui/SelectField';
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 import MenuItem from 'material-ui/MenuItem';
 import RaisedButton from 'material-ui/RaisedButton';
-
+import $ from 'jquery';
 export default class AdminInsert extends Component {
 
     state={
@@ -20,20 +20,25 @@ export default class AdminInsert extends Component {
     };
 
 
-    handleSubmit= () => {
-        fetch('http://192.168.33.101:3001/admin',{
-            method: 'POST',
-            headers: {
-                Accept: 'application/json',
-                'Content-Type': 'application/json',
+    handleSubmit = () =>  {
+        console.log('ceva');
+        $.ajax({
+            url: 'http://192.168.33.101:3001/insert',
+            type: 'POST',
+            data: {
+                "wineName": this.state.wineName,
+                "wineColor": this.state.wineColor,
+                "wineSweetness": this.state.wineSweetness,
+                "crama": this.state.crama,
+                "wineCost": this.state.wineCost,
             },
-            body: JSON.stringify({
-                wineName: this.state.wineName,
-                wineColor: this.state.wineColor,
-            }),
-
+    }).then(function (json) {
+            var object = JSON.parse(json);
+            console.log(json);
+            console.log('s a trimis boss');
         })
     }
+
     handleChange=(event,index,value)=>this.setState({wineColor: value});
     handleSweetnessChange=(event,index,value)=> this.setState({wineSweetness: value});
     handleCramaChange=(event,index,value)=>this.setState({crama: value});
@@ -88,7 +93,7 @@ export default class AdminInsert extends Component {
                     <MenuItem value='Crama carligele' primaryText="Crama carligele" />
                 </SelectField>
 
-            <RaisedButton label="Submit" fullWidth={true} onClick={this.handleSubmit()} />
+            <RaisedButton label="Submit" fullWidth={true} onClick={() => this.handleSubmit()} />
             </MuiThemeProvider>
 
         </div>)

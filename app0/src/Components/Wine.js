@@ -87,7 +87,6 @@ export default class Wine extends Component {
 
             })}
             });
-        console.log(this);
 
     }
 
@@ -163,14 +162,3 @@ export default class Wine extends Component {
     }
 }
 
-
-/*
- <img src="assets/beciul_domnesc.png" alt="beciul domnesc"/>
- <img src="assets/ciocarlia_alba.png" alt="ciocarlia-alb"/>
- <img src="assets/farniente.png" alt="farniente"/>
- <img src="assets/vin1.png" alt="vin1" />
- <img src="assets/vita_romaneasca_rosu.png" alt="vita romaneasca"/>
- <img src="assets/georgio.png" alt="georgio" />
- <img src="assets/beciul_domnesc.png" alt="beciul-domnesc"/>
-
- */

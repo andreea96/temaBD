@@ -4,10 +4,9 @@ var favicon = require('serve-favicon');
 var logger = require('morgan');
 var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
-
+var Wine=require('./Models/Wine');
 var index = require('./Controllers/routes/index');
 var users = require('./Controllers/routes/users');
-var admin=require('./Controllers/Admin');
 
 var app = express();
 
@@ -43,9 +42,37 @@ app.use(function (req, res, next) {
     next();
 });
 
+app.post('/insert',function (req,resp) {
+    /*
+        @PARAMS
+        wineColor
+        wineSweetness
+        crama
+        wineName
+        wineCost
+     */
+    var WineObj = req.body; //obiect cu parametrii din state
+    Wine.insertNewWine(WineObj,function (err,result) {
+
+        console.log(result);
+        if(err) resp.send(err);
+        else {
+            Wine.insertIntoCrama(WineObj.crama,result.insertId,function (err,result) {
+                if(err) throw err;
+                console.log(
+                    result
+                );
+                resp.send(result);
+            })
+        }
+    });
+
+})
+
+
 app.use('/vinuri', index);
 app.use('/users', users);
-app.use('/admin',admin);
+
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
