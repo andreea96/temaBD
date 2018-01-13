@@ -29,10 +29,10 @@ export default class Wine extends Component {
         this.state={
             images:[],
             activeImageID: 0,
-            activeWineName: 'Undefined',
-            activeWinePrice: 0,
-            activeWineColor: 'Undefined',
-            activeWineType: 'Undefined',
+            activeWineName: 'Ambrosio',
+            activeWinePrice: 95,
+            activeWineColor: 'alb',
+            activeWineType: 'sec',
             wines_id: [],
 
         };
@@ -114,6 +114,8 @@ export default class Wine extends Component {
                    wines_id: wines_id,
                });
             } ));
+        console.log(this.state);
+
     }
 
     render() {
